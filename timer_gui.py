@@ -1,11 +1,10 @@
-import random
 import sys
 import time
 from enum import Enum, auto
 from typing import Callable, Optional
 
-from PySide6 import QtCore, QtGui, QtWidgets
-from PySide6.QtWidgets import QButtonGroup, QCheckBox, QLabel, QPushButton
+from PySide6 import QtCore, QtWidgets
+from PySide6.QtWidgets import QHBoxLayout, QLabel, QPushButton, QVBoxLayout
 
 
 def format_time(seconds: int | float) -> str:
@@ -36,11 +35,11 @@ class MyWidget(QtWidgets.QWidget):
         self.timer_state: TimerState = TimerState.IS_INACTIVE
 
         # Creates a Button
-        self.start_button = QtWidgets.QPushButton("Start")
-        self.pause_button = QtWidgets.QPushButton("Pause")
-        self.stop_button = QtWidgets.QPushButton("Stop")
+        self.start_button = QPushButton("Start")
+        self.pause_button = QPushButton("Pause")
+        self.stop_button = QPushButton("Stop")
 
-        self._buttons: list[QtWidgets.QPushButton] = [
+        self._buttons: list[QPushButton] = [
             self.start_button,
             self.pause_button,
             self.stop_button,
@@ -52,13 +51,11 @@ class MyWidget(QtWidgets.QWidget):
         ]
 
         # Adds text Label
-        self.timer_text = QtWidgets.QLabel(
-            text=format_time(0), alignment=QtCore.Qt.AlignCenter
-        )
+        self.timer_text = QLabel(text=format_time(0), alignment=QtCore.Qt.AlignCenter)
 
-        self.layout = QtWidgets.QVBoxLayout(self)
+        self.layout = QVBoxLayout(self)
 
-        self.button_layout = QtWidgets.QHBoxLayout()
+        self.button_layout = QHBoxLayout()
         for btn in self._buttons:
             self.button_layout.addWidget(btn)
 
@@ -128,7 +125,7 @@ def main() -> None:
 
     widget = MyWidget()
     widget.resize(800, 600)
-    # Prolly have to resize before showing, but could add it int the init logic, couldn't we?
+    # Prolly have to resize before showing, but we could add it int the init logic, couldn't we?
     widget.show()
 
     sys.exit(app.exec())
